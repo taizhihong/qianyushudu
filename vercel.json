@@ -1,1 +1,9 @@
-{}
+{
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "https://cloudbase-d1goz2ljs25ceafde-1461923445.ap-shanghai.app.tcloudbaseapp.com/:path*"
+    }
+  ]
+}
+
