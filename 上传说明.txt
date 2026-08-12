@@ -1,0 +1,16 @@
+这一批和以往不一样：pwa/ 和 sw.js 也必须一起传，不能只传 index.html。
+
+覆盖到你原来的 web 文件夹里：
+  index.html      ← 覆盖旧的
+  sw.js           ← 跟 index.html 同一层（版本号已改 qy-v2，必须换，否则用户还在用旧缓存）
+  pwa/manifest.json ← 覆盖旧的（这次改的就是它，不换等于白改）
+  pwa/ 里的四个图标 ← 没变，传不传都行
+
+其余（logo.png、afdian.png、wenkai-subset.woff2、lit-*.png、徽章与明信片/）一个都不用动。
+
+传完自己验一遍：
+  安卓 Chrome 打开网站 → 我的 → 账号，最上面那个钮应该写「装到桌面」而不是
+  「看图，一步一步来」。写「装到桌面」就说明这次修对了。
+
+以后只改 index.html 的话，直接传就行；
+只有再改 sw.js 或 pwa/ 里的东西，才要把 sw.js 里的 const V 加一。

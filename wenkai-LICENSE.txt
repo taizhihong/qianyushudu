@@ -1,0 +1,25 @@
+明信片 / 藏书票所用字体
+====================================
+
+字体：霞鹜文楷 LXGW WenKai（Regular）
+作者：LXGW  https://github.com/lxgw/LxgwWenKai
+许可：SIL Open Font License 1.1（OFL-1.1）—— 可免费商用、可嵌入、可再分发
+
+本目录中的 wenkai-subset.woff2 是按站内实际用字裁出的子集
+（1902 个字符，含全部作者姓名、简介句、国别、年份与界面固定文案），
+423 KB，零缺字。裁剪不改变原字体的许可条款。
+
+原字体版权声明（取自字体文件 name 表）：
+  Copyright 2021-2023 LXGW (https://github.com/lxgw/LxgwWenKai)
+  Copyright 2020 The Klee Project Authors
+    (https://github.com/fontworks-fonts/Klee)
+
+OFL 1.1 的两条实务要求：
+  1. 保留上述版权声明与许可证（本文件即为此用途，随字体一起放着即可）
+  2. 不得单独售卖字体本身（随产品使用没有问题）
+
+如需完整 OFL 许可证全文，见 https://scripts.sil.org/OFL
+
+—— 注意 ——
+站内其余部分仍使用系统字体（Songti SC / STSong 等），不涉及第三方字体授权。
+若不上传 wenkai-subset.woff2，明信片与藏书票会自动回退到系统宋体，功能不受影响。
