@@ -285,22 +285,38 @@
     if(confirm('保存结果需要一个昵称账号（网页和小程序通用）。现在去注册？取消仍可继续看结果。')){closeQz();try{var tab=document.querySelector('.tab[data-p="me"]');if(tab)tab.click();if(window.setMeTab)window.setMeTab('acct');var r=document.getElementById('aRegBtn');if(r){r.scrollIntoView({behavior:'smooth'});r.focus();}}catch(e){}}};
   // ---- 分享卡：竖版 3:4，canvas 导出 ----
   window.qzShareCard=function(){if(!lastReport)return;shareCard(lastReport);};
-  function shareCard(rep){var self=rep.cards[0]||{},W=900,H=1200,c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+  function shareCard(rep){var self=rep.cards[0]||{},W=1000,H=1333,c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
     var acc=(getComputedStyle(document.documentElement).getPropertyValue('--accent')||'#9E3D32').trim()||'#9E3D32';
     var soft=(getComputedStyle(document.documentElement).getPropertyValue('--accent-soft')||'#FAF1EE').trim()||'#FAF1EE';
-    x.fillStyle='#fbf7ef';x.fillRect(0,0,W,H);x.fillStyle=soft;x.fillRect(0,0,W,150);
-    x.fillStyle=acc;x.font='600 30px "Songti SC",serif';x.textAlign='center';x.fillText('千 屿 姝 读', W/2, 66);
-    x.fillStyle='rgba(90,76,66,.7)';x.font='22px "Songti SC",serif';x.fillText('你是哪位女作家', W/2, 108);
-    x.fillStyle='#3a302a';x.font='600 26px "Songti SC",serif';x.fillText('你的本命', W/2, 210);
-    x.fillStyle=acc;x.font='600 58px "Songti SC",serif';x.fillText(self.name||'', W/2, 280);
-    x.fillStyle='rgba(90,76,66,.7)';x.font='24px "Songti SC",serif';x.fillText((self.years||'')+(self.en?'　'+self.en:''), W/2, 322);
-    drawRadar(x,W/2,520,150,rep.user.ax,self.ax,acc);
-    x.fillStyle='#4a3f38';x.font='30px "Songti SC",serif';x.textAlign='center';
-    var lines=wrap(rep.portrait.title+'。'+(rep.portrait.body.split('。')[0]||'')+'。',x,W-160);
-    var yy=760;lines.slice(0,4).forEach(function(l){x.fillText(l,W/2,yy);yy+=44;});
-    x.strokeStyle='rgba(158,61,50,.25)';x.beginPath();x.moveTo(120,H-190);x.lineTo(W-120,H-190);x.stroke();
-    x.fillStyle=acc;x.font='600 26px "Songti SC",serif';x.fillText('qianyushudu.cn', W/2, H-118);
-    
+    function rr(X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath();}
+    x.fillStyle='#fbf7ef';x.fillRect(0,0,W,H);
+    x.fillStyle=soft;x.fillRect(0,0,W,158);
+    x.strokeStyle='rgba(158,61,50,.16)';x.lineWidth=2;x.strokeRect(24,24,W-48,H-48);
+    x.textAlign='center';
+    x.fillStyle=acc;x.font='600 34px "Songti SC",serif';x.fillText('千 屿 姝 读', W/2, 74);
+    x.fillStyle='rgba(90,76,66,.7)';x.font='24px "Songti SC",serif';x.fillText('你是哪位女作家', W/2, 118);
+    x.fillStyle='rgba(158,61,50,.85)';x.font='22px "Songti SC",serif';x.fillText('你 是 什 么 样 的 读 者', W/2, 206);
+    x.fillStyle='#5a3f47';x.font='600 46px "Songti SC",serif';x.fillText(rep.portrait.title, W/2, 264);
+    drawRadar(x, W/2, 458, 140, rep.user.ax, self.ax, acc);
+    x.fillStyle=acc;x.font='22px "Songti SC",serif';x.fillText('■ 你', W/2-60, 648);
+    x.fillStyle='rgba(120,90,80,.75)';x.fillText('▱ 本命 '+(self.name||''), W/2+66, 648);
+    x.fillStyle='#4a3f38';x.font='27px "Songti SC",serif';
+    var lines=wrap((rep.portrait.body.split('。')[0]||'')+'。', x, W-200);
+    var yy=700;lines.slice(0,2).forEach(function(l){x.fillText(l, W/2, yy);yy+=42;});
+    var yStart=yy+22;
+    x.fillStyle='#b08d57';x.font='22px "Songti SC",serif';x.fillText('你 的 六 段 缘 分', W/2, yStart);
+    var COL={self:acc,hometown:'#6f8a56',kindred:'#a97a4a',lover:'#b5566f',friend:'#4f7a86',nemesis:'#5f5f5f'};
+    var rowY=yStart+26, rowH=66;
+    rep.cards.forEach(function(cd){var cy=rowY+rowH/2;
+      x.fillStyle=COL[cd.rel]||acc; rr(88,rowY+10,90,46,11); x.fill();
+      x.fillStyle='#fff';x.font='600 25px "Songti SC",serif';x.textAlign='center';x.fillText(RELCN[cd.rel], 88+45, cy+9);
+      x.textAlign='left';x.fillStyle='#3a302a';x.font='600 31px "Songti SC",serif';x.fillText(cd.name, 208, cy+2);
+      var nw=x.measureText(cd.name).width;
+      x.fillStyle='rgba(90,76,66,.5)';x.font='20px "Songti SC",serif';x.fillText(cd.years||'', 208+nw+14, cy+1);
+      x.textAlign='right';x.fillStyle='rgba(120,90,80,.6)';x.font='19px "Songti SC",serif';x.fillText(RELLINE[cd.rel]||'', W-92, cy+1);
+      x.strokeStyle='rgba(158,61,50,.09)';x.lineWidth=1;x.beginPath();x.moveTo(88,rowY+rowH);x.lineTo(W-88,rowY+rowH);x.stroke();
+      rowY+=rowH; x.textAlign='center';});
+    x.fillStyle=acc;x.font='600 28px "Songti SC",serif';x.textAlign='center';x.fillText('qianyushudu.cn', W/2, H-52);
     showShareImg(c.toDataURL('image/png'));}
   function showShareImg(dataUrl){var m=document.getElementById('qzShareModal');if(!m){m=document.createElement('div');m.id='qzShareModal';document.body.appendChild(m);}
     m.innerHTML='<div class="qz-sm-in"><div class="qz-sm-tip">长按图片保存到相册<br><span>（电脑上右键「图片另存为」）</span></div><img class="qz-sm-img" src="'+dataUrl+'" alt="分享卡"><button class="qz-sm-done" onclick="qzCloseShare()">完成</button></div>';
